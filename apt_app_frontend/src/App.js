@@ -10,6 +10,7 @@ import {
 import logo from './logo.svg';
 import './App.css';
 import Apartments from './pages/Apartments';
+import NewApartment from './pages/NewApartment';
 
 class App extends Component {
   constructor(props) {
@@ -72,6 +73,7 @@ class App extends Component {
                 </Col>
                 </Row>
               </PageHeader>
+              <NewApartment />
             </Grid>
         )} />
         <Route exact path="/apartments" render={props => (
