@@ -14,8 +14,14 @@ class NewApartment extends Component {
     this.state = {
       form:{
         street_1: '',
-        age: '',
-        enjoys: ''
+        street_2: '',
+        city: '',
+        state: '',
+        country: '',
+        postal_code: '',
+        name: '',
+        phone_number: '',
+        contact_hours: '',
       }
     }
   }
