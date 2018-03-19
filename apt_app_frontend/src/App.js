@@ -54,6 +54,11 @@ class App extends Component {
       ]
     }
   }
+
+  newApartmentSubmit(apartment){
+  console.log("This apartment was submitted", apartment)
+  }
+
   render() {
     return (
       <Router>
@@ -73,7 +78,7 @@ class App extends Component {
                 </Col>
                 </Row>
               </PageHeader>
-              <NewApartment />
+              <NewApartment onSubmit={this.newApartmentSubmit.bind(this)} />
             </Grid>
         )} />
         <Route exact path="/apartments" render={props => (

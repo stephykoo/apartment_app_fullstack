@@ -32,6 +32,10 @@ class NewApartment extends Component {
   this.setState({form: formState})
   }
 
+  handleSubmit(){
+  this.props.onSubmit(this.state.form)
+  }
+
   render() {
   return (
     <form>
@@ -145,7 +149,13 @@ class NewApartment extends Component {
         </Col>
       </Row>
 
-
+      <Row>
+       <Col xs={6}>
+        <Button id="submit"
+        onClick={this.handleSubmit.bind(this)}>
+        Create Apartment</Button>
+        </Col>
+      </Row>
 
     </form>
   );
