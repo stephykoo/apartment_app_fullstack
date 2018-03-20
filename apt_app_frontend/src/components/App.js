@@ -10,6 +10,7 @@ import {
 import '../css/App.css';
 import Apartments from './Apartments';
 import NewApartment from './NewApartment';
+import withAuth from './withAuth';
 
 class App extends Component {
   constructor(props) {
@@ -113,4 +114,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAuth(App);
