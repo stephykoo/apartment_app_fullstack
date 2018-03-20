@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom'
 import {
   Grid,
   PageHeader,
@@ -17,47 +17,52 @@ class App extends Component {
     super(props);
 
     this.state = {
-      apartments: [
-        {
-          id: 0,
-          street_1: '1234 Plum Road',
-          city: 'Fruit',
-          state: 'Produce',
-          postal_code: '12345',
-          country: 'USA',
-          name: 'Farmer John',
-          phone_number: '123-456-7890',
-          contact_hours: 'Tuesdays and Thursdays 12pm-4pm'
-        },
-        {
-          id: 1,
-          street_1: '2211 Bluebird Lane',
-          city: 'Aviary',
-          state: 'Zoop',
-          postal_code: '54321',
-          country: 'USA',
-          name: 'Birch Tree',
-          phone_number: '123-456-7890',
-          contact_hours: 'Weekends only'
-        },
-        {
-          id: 2,
-          street_1: '7359 Gummy Bear Drive',
-          city: 'Sour',
-          state: 'Patch',
-          postal_code: '12121',
-          country: 'USA',
-          name: 'Elle Woods',
-          phone_number: '123-456-7890',
-          contact_hours: 'Monday afternoons'
-        }
-      ]
+      apiUrl: "http://localhost:3000",
+      apartments: [],
+      newApartmentSuccess: false,
+      errors: null
     }
   }
 
   newApartmentSubmit(apartment){
-  console.log("This apartment was submitted", apartment)
+    fetch(`${this.state.apiUrl}/apartments`,
+      {
+        body: JSON.stringify(apartment),  // <- we need to stringify the json for fetch
+        headers: {  // <- We specify that we're sending JSON, and expect JSON back
+          'Content-Type': 'application/json'
+        },
+        method: "POST"  // <- Here's our verb, so the correct endpoint is invoked on the server
+      }
+    )
+    .then((rawResponse)=>{
+      // rawResponse.json() itself returns another promise, we we need to resolve it before continuingg
+      return Promise.all([rawResponse.status, rawResponse.json()])
+    })
+    .then((parsedResponse) =>{
+      if(parsedResponse[0] === 422){ // <- Check for any server side errors
+        this.setState({errors: parsedResponse[1]})
+      }else{
+        const apartments = Object.assign([], this.state.apartments)
+        apartments.push(parsedResponse[1]) // <- Add the new apartment to our list of apartments
+        this.setState({
+          apartments: apartments,  // <- Update cats in state
+          errors: null, // <- Clear out any errors if they exist,
+          newApartmentSuccess: true
+        })
+      }
+    })
   }
+
+  componentWillMount(){
+    fetch(`${this.state.apiUrl}/apartments`)
+    .then((rawResponse) =>{
+      return rawResponse.json()
+    })
+    .then((parsedResponse)=>{
+      this.setState({apartments: parsedResponse})
+    })
+  }
+
 
   render() {
     return (
@@ -78,7 +83,11 @@ class App extends Component {
                 </Col>
                 </Row>
               </PageHeader>
-              <NewApartment onSubmit={this.newApartmentSubmit.bind(this)} />
+              <NewApartment onSubmit={this.newApartmentSubmit.bind(this)}
+              errors={this.state.errors} />
+              {this.state.newApartmentSuccess &&
+              <Redirect to="/apartments" />
+              }
             </Grid>
         )} />
         <Route exact path="/apartments" render={props => (
