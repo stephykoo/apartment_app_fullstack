@@ -5,9 +5,11 @@ import { mount } from 'enzyme'
 
 describe('<NewApartment />', () => {
   let component;
+  let mockSubmitHandler;
 
   beforeEach(() => {
     component = mount(<NewApartment />);
+    mockSubmitHandler = jest.fn()
   });
 
   it('renders without crashing', () => {
@@ -56,14 +58,12 @@ describe('<NewApartment />', () => {
   })
 
   it("calls submitHandler on submit", ()=>{
-    const mockSubmitHandler = jest.fn()
-    const component = mount(<NewApartment onSubmit={mockSubmitHandler}/>)
+    component = mount(<NewApartment onSubmit={mockSubmitHandler}/>)
     component.find('button#submit').simulate('click', {button: 0})
     expect(mockSubmitHandler.mock.calls.length).toBe(1)
   })
 
   it("passes values on submit", ()=>{
-    const mockSubmitHandler = jest.fn();
     component = mount(<NewApartment onSubmit={mockSubmitHandler}/>);
 
     component.find('input[name="street_1"]').simulate(
@@ -97,5 +97,100 @@ describe('<NewApartment />', () => {
     expect(submittedValues["name"]).toBe("Fake Name");
     expect(submittedValues["phone_number"]).toBe("111-111-1111");
     expect(submittedValues["contact_hours"]).toBe("Fake hours");
+  });
+
+  it('shows flash message when there is an error', () => {
+    const validationErrors = {
+      street_1: ['Is required.']
+    };
+
+    component = mount(
+      <NewApartment onSubmit={mockSubmitHandler} errors={validationErrors} />);
+    expect(component.find(".alert-danger").length).toBe(1);
+  });
+
+  it("does not show help message when there is no error", () => {
+    component = mount(<NewApartment onSubmit={mockSubmitHandler}/>)
+    expect(component.find("#name-help-block").length).toBe(0)
+  });
+
+  it("highlights street_1 input and shows help message when there is an error", () => {
+    const validationErrors = {
+      street_1: ['Is required.']
+    }
+
+    component = mount(<NewApartment onSubmit={mockSubmitHandler} errors={validationErrors}/>)
+    expect(component.find('#street1-form-group.has-error').length).toBe(1)
+    expect(component.find("#street1-help-block").length).toBe(1)
+  });
+
+  it("highlights city input and shows help message when there is an error", () => {
+    const validationErrors = {
+      city: ['Is required.']
+    }
+
+    component = mount(<NewApartment onSubmit={mockSubmitHandler} errors={validationErrors}/>)
+    expect(component.find('#city-form-group.has-error').length).toBe(1)
+    expect(component.find("#city-help-block").length).toBe(1)
+  });
+
+  it("highlights state input and shows help message when there is an error", () => {
+    const validationErrors = {
+      state: ['Is required.']
+    }
+
+    component = mount(<NewApartment onSubmit={mockSubmitHandler} errors={validationErrors}/>)
+    expect(component.find('#state-form-group.has-error').length).toBe(1)
+    expect(component.find("#state-help-block").length).toBe(1)
+  });
+
+  it("highlights postal_code input and shows help message when there is an error", () => {
+    const validationErrors = {
+      postal_code: ['Is required.']
+    }
+
+    component = mount(<NewApartment onSubmit={mockSubmitHandler} errors={validationErrors}/>)
+    expect(component.find('#postalcode-form-group.has-error').length).toBe(1)
+    expect(component.find("#postalcode-help-block").length).toBe(1)
+  });
+
+  it("highlights country input and shows help message when there is an error", () => {
+    const validationErrors = {
+      country: ['Is required.']
+    }
+
+    component = mount(<NewApartment onSubmit={mockSubmitHandler} errors={validationErrors}/>)
+    expect(component.find('#country-form-group.has-error').length).toBe(1)
+    expect(component.find("#country-help-block").length).toBe(1)
+  });
+
+  it("highlights name input and shows help message when there is an error", () => {
+    const validationErrors = {
+      name: ['Is required.']
+    }
+
+    component = mount(<NewApartment onSubmit={mockSubmitHandler} errors={validationErrors}/>)
+    expect(component.find('#name-form-group.has-error').length).toBe(1)
+    expect(component.find("#name-help-block").length).toBe(1)
+  });
+
+  it("highlights phone_number input and shows help message when there is an error", () => {
+    const validationErrors = {
+      phone_number: ['Is required.']
+    }
+
+    component = mount(<NewApartment onSubmit={mockSubmitHandler} errors={validationErrors}/>)
+    expect(component.find('#phonenumber-form-group.has-error').length).toBe(1)
+    expect(component.find("#phonenumber-help-block").length).toBe(1)
+  });
+
+  it("highlights contact_hours input and shows help message when there is an error", () => {
+    const validationErrors = {
+      contact_hours: ['Is required.']
+    }
+
+    component = mount(<NewApartment onSubmit={mockSubmitHandler} errors={validationErrors}/>)
+    expect(component.find('#contacthours-form-group.has-error').length).toBe(1)
+    expect(component.find("#contacthours-help-block").length).toBe(1)
   });
 });
