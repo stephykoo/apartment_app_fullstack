@@ -11,6 +11,9 @@ import '../css/App.css';
 import Apartments from './Apartments';
 import NewApartment from './NewApartment';
 import withAuth from './withAuth';
+import AuthService from '../services/AuthService'
+
+const Auth = new AuthService()
 
 class App extends Component {
   constructor(props) {
@@ -23,6 +26,11 @@ class App extends Component {
       errors: null
     }
   }
+
+  handleLogout(){ // <- Remove local storage, and redirect the user
+      Auth.logout()
+      this.props.history.replace('/login');
+    }
 
   newApartmentSubmit(apartment){
     fetch(`${this.state.apiUrl}/apartments`,
@@ -108,6 +116,9 @@ class App extends Component {
            <Apartments apartments={this.state.apartments} />
          </Grid>
        )} />
+       <p className="App-intro">
+       <button type="button" className="form-submit" onClick={this.handleLogout.bind(this)}>Logout</button>
+     </p>
      </div>
    </Router>
     );
