@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom'
 import {
   Grid,
   PageHeader,
@@ -24,6 +24,35 @@ class App extends Component {
     }
   }
 
+  newApartmentSubmit(apartment){
+    fetch(`${this.state.apiUrl}/apartments`,
+      {
+        body: JSON.stringify(apartment),  // <- we need to stringify the json for fetch
+        headers: {  // <- We specify that we're sending JSON, and expect JSON back
+          'Content-Type': 'application/json'
+        },
+        method: "POST"  // <- Here's our verb, so the correct endpoint is invoked on the server
+      }
+    )
+    .then((rawResponse)=>{
+      // rawResponse.json() itself returns another promise, we we need to resolve it before continuingg
+      return Promise.all([rawResponse.status, rawResponse.json()])
+    })
+    .then((parsedResponse) =>{
+      if(parsedResponse[0] === 422){ // <- Check for any server side errors
+        this.setState({errors: parsedResponse[1]})
+      }else{
+        const apartments = Object.assign([], this.state.apartments)
+        apartments.push(parsedResponse[1]) // <- Add the new apartment to our list of apartments
+        this.setState({
+          apartments: apartments,  // <- Update cats in state
+          errors: null, // <- Clear out any errors if they exist,
+          newApartmentSuccess: true
+        })
+      }
+    })
+  }
+
   componentWillMount(){
     fetch(`${this.state.apiUrl}/apartments`)
     .then((rawResponse) =>{
@@ -34,9 +63,6 @@ class App extends Component {
     })
   }
 
-  newApartmentSubmit(apartment){
-  console.log("This apartment was submitted", apartment)
-  }
 
   render() {
     return (
@@ -57,7 +83,11 @@ class App extends Component {
                 </Col>
                 </Row>
               </PageHeader>
-              <NewApartment onSubmit={this.newApartmentSubmit.bind(this)} />
+              <NewApartment onSubmit={this.newApartmentSubmit.bind(this)}
+              errors={this.state.errors} />
+              {this.state.newApartmentSuccess &&
+              <Redirect to="/apartments" />
+              }
             </Grid>
         )} />
         <Route exact path="/apartments" render={props => (
