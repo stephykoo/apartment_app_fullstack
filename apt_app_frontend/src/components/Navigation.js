@@ -9,19 +9,19 @@ const Navigation = () => (
       </Navbar.Brand>
     </Navbar.Header>
     <Nav>
-      <NavItem eventKey={1} href="#">
+      <NavItem eventKey={1} href="/register">
         Register
       </NavItem>
-      <NavItem eventKey={2} href="#">
+      <NavItem eventKey={2} href="/login">
         Login
       </NavItem>
-      <NavItem eventKey={3} href="#">
+      <NavItem eventKey={3} href="#]/logout">
         Logout
       </NavItem>
-      <NavItem eventKey={4} href="#">
+      <NavItem eventKey={4} href="/apartments">
         All Apartments
       </NavItem>
-      <NavItem eventKey={5} href="#">
+      <NavItem eventKey={5} href="/new_apartment">
         New Apartment
       </NavItem>
     </Nav>
