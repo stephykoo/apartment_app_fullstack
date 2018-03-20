@@ -7,10 +7,9 @@ import {
   Col
 } from 'react-bootstrap';
 
-import logo from './logo.svg';
-import './App.css';
-import Apartments from './pages/Apartments';
-import NewApartment from './pages/NewApartment';
+import '../css/App.css';
+import Apartments from './Apartments';
+import NewApartment from './NewApartment';
 
 class App extends Component {
   constructor(props) {

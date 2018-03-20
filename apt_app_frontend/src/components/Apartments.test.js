@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Apartments from '../Apartments';
+import Apartments from './Apartments';
 import { mount } from 'enzyme';
 
 const apartments = [
