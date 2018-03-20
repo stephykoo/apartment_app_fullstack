@@ -1,5 +1,5 @@
 .center {
-  background-color: #7ac143;
+  background-color: gray;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -36,7 +36,7 @@
 .form-submit {
   height: 35px;
   color: #fff;
-  background-color: #7ac143;
+  background-color: black;
   border: none;
   transition: 0.3s opacity ease;
   cursor: pointer;
