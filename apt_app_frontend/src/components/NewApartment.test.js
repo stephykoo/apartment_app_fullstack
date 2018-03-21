@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NewApartment from '../NewApartment';
+import NewApartment from './NewApartment';
 import { mount } from 'enzyme'
 
 describe('<NewApartment />', () => {
