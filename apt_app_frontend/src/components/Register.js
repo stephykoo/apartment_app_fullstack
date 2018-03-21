@@ -78,7 +78,7 @@ export default class Register extends Component {
               className="form-item"
               placeholder="Confirm Password"
               name="password_confirmation"
-              type="password_confirmation"
+              type="password"
               onChange={this.handleChange.bind(this)}
               value={this.state.form.password_confirmation}
             />
