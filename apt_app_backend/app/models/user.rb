@@ -1,3 +1,4 @@
 class User < ApplicationRecord
-  has_secure_password # <-- This is the new line
+  has_secure_password
+  has_many :maintenances
 end
