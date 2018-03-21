@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Col,
-  Row,
-  ListGroup,
-  ListGroupItem
+  Table
 } from 'react-bootstrap';
 
 export default class Apartments extends Component {
@@ -28,47 +25,33 @@ export default class Apartments extends Component {
 
   render() {
     return (
-      <Row>
-        <Col xs={12}>
-          <ListGroup>
-            {this.state.apartments.map((apt, index) =>{
-              return (
-                <ListGroupItem
-                  key={index}
-                  header={
-                    <h4>
-                      <span className='apt-street-1'>
-                        {apt.street_1}
-                      </span>
-                    </h4>
-                  }>
-                  <span className='apt-city'>
-                    {apt.city}
-                  </span>
-                  <span className='apt-state'>
-                    {apt.state}
-                  </span>
-                  <span className='apt-postal-code'>
-                    {apt.postal_code}
-                  </span>
-                  <span className='apt-country'>
-                    {apt.country}
-                  </span>
-                  <span className='apt-name'>
-                    {apt.name}
-                  </span>
-                  <span className='apt-phone-number'>
-                    {apt.phone_number}
-                  </span>
-                  <span className='apt-contact-hours'>
-                    {apt.contact_hours}
-                  </span>
-                </ListGroupItem>
-              )
-            })}
-          </ListGroup>
-        </Col>
-      </Row>
+      <Table striped hover>
+        <thead>
+          <tr>
+            <th>Address</th>
+            <th>Landlord</th>
+            <th>Phone Number</th>
+            <th>Hours of Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.state.apartments.map((apt, idx) => {
+            return (
+              <tr key={idx}>
+                <td>
+                  <p>{apt.street_1}</p>
+                  <p>{apt.street_2}</p>
+                  <p>{apt.city}, {apt.state} {apt.postal_code}</p>
+                  <p>{apt.country}</p>
+                </td>
+                <td>{apt.name}</td>
+                <td>{apt.phone_number}</td>
+                <td>{apt.contact_hours}</td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </Table>
     );
   }
 }
