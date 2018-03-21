@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "maintenances#index"
+
   resources :maintenances
   post 'user_token' => 'user_token#create'
   resources :users
