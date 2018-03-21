@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 export default class Register extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       form: {
         email: '',
@@ -17,12 +17,14 @@ export default class Register extends Component {
   }
 
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    const formState = Object.assign({}, this.state.form)
+    formState[event.target.name] = event.target.value
+    this.setState({form: formState})
   }
 
   handleFormSubmit(event) {
     event.preventDefault();
-    fetch(`${this.state.apiUrl}/new_user`,
+    fetch(`${this.state.apiUrl}/users`,
       {
         body: JSON.stringify(this.state.form),
         headers: {
@@ -31,13 +33,8 @@ export default class Register extends Component {
         method: "POST"
       }
     )
-    .then((rawResponse)=>{
-      return Promise.all([rawResponse.status, rawResponse.json()])
-    })
-    .then((parsedResponse) =>{
-      if (parsedResponse[0] === 422) {
-        this.setState({errors: parsedResponse[1]})
-      } else {
+    .then((res) =>{
+      if (res.status !== 422) {
         this.setState({
           errors: null,
           newUserSuccess: true
@@ -81,7 +78,7 @@ export default class Register extends Component {
               className="form-item"
               placeholder="Confirm Password"
               name="password_confirmation"
-              type="password"
+              type="password_confirmation"
               onChange={this.handleChange.bind(this)}
               value={this.state.form.password_confirmation}
             />

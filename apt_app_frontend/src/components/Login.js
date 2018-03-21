@@ -3,7 +3,7 @@ import '../css/Login.css';
 import AuthService from '../services/AuthService';
 
 export default class Login extends Component {
-  constructor(){
+  constructor() {
     super()
     this.Auth = new AuthService()
     this.state={
@@ -12,15 +12,16 @@ export default class Login extends Component {
     }
   }
 
-  handleChange(e){
+  handleChange(e) {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleFormSubmit(e){
-    e.preventDefault()
+  handleFormSubmit(e) {
+    e.preventDefault();
     this.Auth.login(this.state.email,this.state.password)
-    .then(res =>{
+    .then(res => {
       this.props.history.replace('/')
+      alert('You are logged in!');
     })
     .catch(err =>{ alert(err) })
   }
