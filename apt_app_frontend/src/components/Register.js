@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 export default class Register extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       form: {
         email: '',
@@ -11,32 +11,29 @@ export default class Register extends Component {
         password: '',
         password_confirmation: ''
       },
-      apiUrl: "http://localhost:3000",
+      apiUrl: 'http://localhost:3000',
       newUserSuccess: false
-    }
+    };
   }
 
   handleChange(event) {
-    const formState = Object.assign({}, this.state.form)
-    formState[event.target.name] = event.target.value
-    this.setState({form: formState})
+    const formState = Object.assign({}, this.state.form);
+    formState[event.target.name] = event.target.value;
+    this.setState({ form: formState });
   }
 
   handleFormSubmit(event) {
     event.preventDefault();
     fetch(`${this.state.apiUrl}/users`,
       {
-        body: JSON.stringify(this.state.form),
+        body: JSON.stringify({ user: this.state.form }),
         headers: {
           'Content-Type': 'application/json'
         },
-        method: "POST"
-      }
-    )
-    .then((res) =>{
+        method: 'POST'
+      }).then((res) => {
       if (res.status !== 422) {
         this.setState({
-          errors: null,
           newUserSuccess: true
         });
       }
@@ -89,7 +86,7 @@ export default class Register extends Component {
             />
           </form>
         </div>
-        {this.state.newUserSuccess && <Redirect to='/apartments' />}
+        {this.state.newUserSuccess && <Redirect to="/apartments" />}
       </div>
     );
   }
