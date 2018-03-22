@@ -2,6 +2,22 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    if user.nil?
+      # if no user logged in, use a dummy user, see later
+      user = User.new
+    end
+
+    if user.has_role? :landlord
+      can :manage, :all
+    elsif user.has_role? :tenant
+      can :create, :read, :update, :destroy, Maintenance, user_id: user.id
+    elsif user.has_role? :nontenant
+      can :read, Apartment
+    end
+  end
+end
+
+
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -28,5 +44,3 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-  end
-end
