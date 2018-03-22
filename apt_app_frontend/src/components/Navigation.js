@@ -15,13 +15,16 @@ const Navigation = () => (
       <NavItem eventKey={2} href="/login">
         Login
       </NavItem>
-      <NavItem eventKey={3} href="#]/logout">
+      <NavItem eventKey={3} href="/logout">
         Logout
       </NavItem>
-      <NavItem eventKey={4} href="/apartments">
+      <NavItem eventKey={5} href="/profile">
+        Profile
+      </NavItem>
+      <NavItem eventKey={6} href="/apartments">
         All Apartments
       </NavItem>
-      <NavItem eventKey={5} href="/new_apartment">
+      <NavItem eventKey={7} href="/new_apartment">
         New Apartment
       </NavItem>
     </Nav>
