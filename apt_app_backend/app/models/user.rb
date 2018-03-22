@@ -5,6 +5,11 @@ class User < ApplicationRecord
 
   after_create :assign_role
 
+  validates :name, length: { minimum: 2 }
+  validates :password, length: { in: 6..20}
+  validates :name, :password, presence: true
+  validates :name, uniqueness: true
+
   def assign_role
     add_role(:nontenant)
   end
