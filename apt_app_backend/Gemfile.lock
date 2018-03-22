@@ -147,7 +147,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt (~> 3.1.7)
   byebug
   knock
   listen (>= 3.0.5, < 3.2)

@@ -26,7 +26,7 @@ export default class Register extends Component {
     event.preventDefault();
     fetch(`${this.state.apiUrl}/users`,
       {
-        body: JSON.stringify(this.state.form),
+        body: JSON.stringify({ user: this.state.form }),
         headers: {
           'Content-Type': 'application/json'
         },
