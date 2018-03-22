@@ -44,3 +44,4 @@ gem 'rspec-rails', groups: [:development, :test]
 gem 'knock'
 gem 'cancancan'
 gem 'rolify'
+gem 'paperclip'
