@@ -11,6 +11,7 @@ class Ability
       can :manage, :all
     elsif user.has_role? :tenant
       can :create, :read, :update, :destroy, Maintenance, user_id: user.id
+      can :read, Apartment
     elsif user.has_role? :nontenant
       can :read, Apartment
     end
