@@ -35,7 +35,8 @@ class Profile extends Component {
               return(
                 <li key={role.name}>{role.name}</li>
               )
-            })}</div>
+            })}
+            </div>
           </div>
         }
         </div>
