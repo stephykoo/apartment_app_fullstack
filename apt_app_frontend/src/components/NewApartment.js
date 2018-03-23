@@ -10,6 +10,7 @@ import {
   Alert,
   HelpBlock
 } from 'react-bootstrap';
+import '../css/NewApartment.css';
 
 class NewApartment extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class NewApartment extends Component {
         name: '',
         phone_number: '',
         contact_hours: '',
+        avatar_base: null
       },
       apiUrl: "http://localhost:3000",
       apartments: [],
@@ -44,7 +46,7 @@ class NewApartment extends Component {
 
     fetch(`${this.state.apiUrl}/apartments`,
       {
-        body: JSON.stringify(this.state.form),
+        body: JSON.stringify({apartment: this.state.form}),
         headers: {
           'Content-Type': 'application/json'
         },
@@ -69,6 +71,24 @@ class NewApartment extends Component {
     });
   }
 
+  getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  fileChangeHandler(event){
+    const file = event.target.files[0]
+    this.getBase64(file).then( (fileString) => {
+      const formState = Object.assign({}, this.state.form)
+      formState.avatar_base = fileString
+      this.setState({form: formState})
+    })
+  }
+
   errorsFor(attribute){
     var errorString = ""
     if(this.props.errors && this.props.errors[attribute]){
@@ -84,7 +104,7 @@ class NewApartment extends Component {
     return (
       <div className="center">
         <div className="card">
-          <h1>New Apartment</h1>
+          <h1 className = "title">New Apartment</h1>
           <form onSubmit={this.handleSubmit.bind(this)}
           >
             <input
@@ -158,6 +178,10 @@ class NewApartment extends Component {
               type="text"
               onChange={this.handleChange.bind(this)}
               value={this.state.form.contact_hours}
+            />
+            <input
+              type="file"
+              onChange={this.fileChangeHandler.bind(this)}
             />
             <input
               className="form-submit"

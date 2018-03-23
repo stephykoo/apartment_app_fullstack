@@ -1,11 +1,13 @@
 .center {
-  background-color: gray;
+  background-image: url("http://newtechnaukri.com/wp-content/uploads/2017/04/Assembly-Confidential-Project-Goa-and-apartment-guys.jpg");
   position: absolute;
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
+  background-size:cover;
 }
 
 .card {
@@ -36,7 +38,7 @@
 .form-submit {
   height: 35px;
   color: #fff;
-  background-color: black;
+  background-color: #d9b38c;
   border: none;
   transition: 0.3s opacity ease;
   cursor: pointer;

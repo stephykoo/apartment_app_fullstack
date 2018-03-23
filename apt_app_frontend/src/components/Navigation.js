@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import '../css/Navigation.css';
 
 const Navigation = () => (
   <Navbar>

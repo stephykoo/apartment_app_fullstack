@@ -1,5 +1,3 @@
-require 'byebug'
-
 class ApartmentsController < ApplicationController
   def index
     # apartments = Apartment.all
@@ -9,7 +7,6 @@ class ApartmentsController < ApplicationController
 
   def create
     apartment = Apartment.create(apartment_params)
-    byebug
     if apartment.valid?
       render json:apartment
     else
