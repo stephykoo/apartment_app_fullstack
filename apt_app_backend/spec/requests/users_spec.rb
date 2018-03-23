@@ -9,9 +9,7 @@ RSpec.describe "Users", type: :request do
         'Authorization': "Bearer #{token}"
       }
     end
-
-    #.... other user tests
-
+    
     it "creates a user" do
       payload = {
         user: {
