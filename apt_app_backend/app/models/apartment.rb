@@ -8,7 +8,7 @@ class Apartment < ApplicationRecord
   validates :phone_number, presence: true
   validates :contact_hours, presence: true
 
-  has_attached_file :avatar, styles: { large: "200x200" }
+  has_attached_file :avatar, styles: { small: "64x64", med: "100x100", large: "200x200" }
   validates_attachment :avatar, presence: true,
     content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] },
     size: { in: 0..10.megabytes }
