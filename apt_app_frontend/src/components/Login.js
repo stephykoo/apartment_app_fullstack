@@ -35,7 +35,7 @@ export default class Login extends Component {
           >
             <input
               className="form-item"
-              placeholder="email goes here..."
+              placeholder="Email"
               name="email"
               type="text"
               onChange={this.handleChange.bind(this)}
@@ -43,7 +43,7 @@ export default class Login extends Component {
             />
             <input
               className="form-item"
-              placeholder="Password goes here..."
+              placeholder="Password"
               name="password"
               type="password"
               onChange={this.handleChange.bind(this)}

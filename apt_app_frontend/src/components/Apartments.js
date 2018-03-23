@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Table
 } from 'react-bootstrap';
+import "../css/Apartment.css"
 
 export default class Apartments extends Component {
   constructor(props) {
@@ -25,13 +26,15 @@ export default class Apartments extends Component {
 
   render() {
     return (
+      <div className = "center">
+      <div className = "card">
       <Table striped hover>
         <thead>
           <tr>
-            <th>Address</th>
-            <th>Landlord</th>
-            <th>Phone Number</th>
-            <th>Hours of Contact</th>
+            <th className = "more">Address</th>
+            <th className = "more">Landlord</th>
+            <th className = "more">Phone Number</th>
+            <th className = "more">Hours of Contact</th>
           </tr>
         </thead>
         <tbody>
@@ -52,6 +55,8 @@ export default class Apartments extends Component {
           })}
         </tbody>
       </Table>
+      </div>
+      </div>
     );
   }
 }

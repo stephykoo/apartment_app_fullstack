@@ -16,6 +16,8 @@ export default class Register extends Component {
     };
   }
 
+  //TODO: Handle form errors
+
   handleChange(event) {
     const formState = Object.assign({}, this.state.form);
     formState[event.target.name] = event.target.value;

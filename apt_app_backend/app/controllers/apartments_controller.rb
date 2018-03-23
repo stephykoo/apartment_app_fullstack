@@ -1,7 +1,8 @@
 class ApartmentsController < ApplicationController
   def index
-    apartments = Apartment.all
-    render json: apartments
+    # apartments = Apartment.all
+    # render json: apartments
+    @apartments = Apartment.all
   end
 
   def create
@@ -23,6 +24,7 @@ class ApartmentsController < ApplicationController
       :country,
       :name,
       :phone_number,
-      :contact_hours)
+      :contact_hours,
+      :avatar_base)
   end
 end
