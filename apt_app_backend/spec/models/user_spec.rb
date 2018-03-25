@@ -21,15 +21,20 @@ RSpec.describe User, type: :model do
 
     it 'fails when no password' do
       user.password = nil
-      expect(user.save).to eq false
+      expect { user.save! }.to raise_exception(
+        /Validation failed: Password can't be blank, Password is too short/
+      )
     end
 
     it 'fails when password is less than 7 characters' do
-
+      user.password = 'bad'
+      user.password_confirmation = 'bad'
+      expect(user.save).to eq false
     end
 
     it 'fails when no password_confirmation' do
-
+      user.password_confirmation = nil
+      expect(user.save).to eq false
     end
 
     it 'fails when password does not equal password confirmation' do
