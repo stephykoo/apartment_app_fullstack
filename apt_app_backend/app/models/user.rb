@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :name, length: { minimum: 2 }
   validates :password, length: { in: 6..20 }
   validates :email, :password, :password_confirmation, :name, presence: true
-  validates :name, uniqueness: true
+  validates :email, uniqueness: true
 
   def assign_role
     add_role(:nontenant)
