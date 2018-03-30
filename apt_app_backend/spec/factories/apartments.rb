@@ -1,3 +1,4 @@
+# This factory creates fake apartment instances for testing
 FactoryBot.define do
   factory :apartment do
     street_1      Faker::Address.street_address
